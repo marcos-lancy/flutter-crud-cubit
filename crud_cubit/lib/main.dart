@@ -1,5 +1,6 @@
 import 'package:crud_cubit/screens/adicionar_screen.dart';
 import 'package:crud_cubit/screens/home_screen.dart';
+import 'package:crud_cubit/services/categoria_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -16,17 +17,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/home',
       routes: {
-        HomeScreen.routeName: (context) => HomeScreen(),
-        AdicionaScreen.routename: (context) => AdicionaScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(serv: CategoriaService()),
+        AdicionaScreen.routename: (context) =>
+            AdicionaScreen(serv: CategoriaService()),
       },
-      //home: Container(),
     );
   }
 }
-
-

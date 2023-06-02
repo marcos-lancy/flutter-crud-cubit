@@ -4,13 +4,19 @@ import 'package:equatable/equatable.dart';
 abstract class CategoriaState extends Equatable {}
 
 class InitialState extends CategoriaState {
-
   @override
   List<Object> get props => [];
 }
 
 class LoadingState extends CategoriaState {
+  @override
+  List<Object> get props => [];
+}
 
+class SuccessState extends CategoriaState {
+  SuccessState(this.sucesso);
+
+  final bool sucesso;
   @override
   List<Object> get props => [];
 }
