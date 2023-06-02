@@ -11,6 +11,30 @@ class AdicionaScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Adiciona'),
       ),
+      body: Form(
+        child: Column(
+          children: [
+            SizedBox(
+              width: 300,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.category),
+                  labelText: 'Categoria'
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: SizedBox(
+                child: ElevatedButton(
+                  onPressed: (){},
+                  child: const Text('Cadastrar'),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

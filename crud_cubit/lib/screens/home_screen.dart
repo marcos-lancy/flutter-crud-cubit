@@ -16,6 +16,11 @@ class HomeScreen extends StatelessWidget {
               icon: const Icon(Icons.add),)
         ],
       ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }
