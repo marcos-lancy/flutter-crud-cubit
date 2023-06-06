@@ -1,8 +1,8 @@
 import 'package:crud_cubit/cubit/categoria_cubit.dart';
 import 'package:crud_cubit/cubit/categoria_state.dart';
-import 'package:crud_cubit/models/categoria_model.dart';
-import 'package:crud_cubit/screens/adicionar_page.dart';
 import 'package:crud_cubit/screens/adicionar_screen.dart';
+import 'package:crud_cubit/screens/cubit/categoria_cubit.dart';
+import 'package:crud_cubit/screens/cubit/categoria_state.dart';
 import 'package:crud_cubit/services/categoria_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +20,9 @@ class HomeScreen extends StatelessWidget {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    AdicionaScreen(cubit: context.read<CategoriaCubit>(),),
+                builder: (context) => AdicionaScreen(
+                  cubit: context.read<CategoriaCubit>(),
+                ),
               ),
             ),
             icon: const Icon(Icons.add),
