@@ -1,8 +1,12 @@
+import 'package:crud_cubit/cubit/categoria_cubit.dart';
+import 'package:crud_cubit/screens/adicionar_page.dart';
 import 'package:crud_cubit/screens/adicionar_screen.dart';
+import 'package:crud_cubit/screens/home_page.dart';
 import 'package:crud_cubit/screens/home_screen.dart';
 import 'package:crud_cubit/services/categoria_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,9 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/home',
       routes: {
-        HomeScreen.routeName: (context) => HomeScreen(serv: CategoriaService()),
-        AdicionaScreen.routename: (context) =>
-            AdicionaScreen(serv: CategoriaService()),
+        HomePage.routeName: (context) => HomePage(service: CategoriaService()),
       },
     );
   }

@@ -35,6 +35,25 @@ class CategoriaService {
     return true;
   }
 
+  Future<List<CategoriaModel>> consultarCategorias() async {
+
+    http.Response response = await client.get(Uri.parse(getUrl()));
+
+    if(response.statusCode != 200) {
+
+    }
+
+    List<CategoriaModel> list = [];
+
+    List<dynamic> listDynamic = json.decode(response.body);
+
+    for (var jsonMap in listDynamic) {
+      list.add(CategoriaModel.fromMap(jsonMap));
+    }
+
+    return list;
+  }
+
 //   Future<bool> delete({required String id, required String token}) async {
 //     http.Response response = await http.delete(Uri.parse("${getUrl()}$id"),
 //         headers: {'Content-type': 'application/json'});

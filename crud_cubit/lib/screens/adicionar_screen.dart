@@ -8,10 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdicionaScreen extends StatelessWidget {
-  static String routename = '/adiciona';
-  final CategoriaService serv;
+  late final CategoriaCubit cubit;
 
-  AdicionaScreen({Key? key, required this.serv}) : super(key: key);
+  AdicionaScreen({Key? key, required this.cubit}) : super(key: key);
 
   final TextEditingController _categoriaController = TextEditingController();
   @override
@@ -19,54 +18,51 @@ class AdicionaScreen extends StatelessWidget {
     int _id = Random().nextInt(1000);
     final _formKey = GlobalKey<FormState>();
 
-    return BlocProvider(
-      create: (context) => CategoriaCubit(service: serv),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Adiciona'),
-        ),
-        body: BlocBuilder<CategoriaCubit, CategoriaState>(
-          builder: (context, state) {
-            final cubit = context.read<CategoriaCubit>();
-            return Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 300,
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value == "") {
-                          return 'Informe o Nome';
-                        }
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Adiciona'),
+      ),
+      body: BlocBuilder<CategoriaCubit, CategoriaState>(
+        bloc: cubit,
+        builder: (context, state) {
+          return Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value == "") {
+                        return 'Informe o Nome';
+                      }
+                    },
+                    controller: _categoriaController,
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.category), labelText: 'Categoria'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: SizedBox(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        CategoriaModel categoria = CategoriaModel(
+                            id: _id.toString(),
+                            nome: _categoriaController.text);
+
+                        cubit.addTodo(categoria: categoria);
+
+                        Navigator.pop(context);
                       },
-                      controller: _categoriaController,
-                      decoration: const InputDecoration(
-                          icon: Icon(Icons.category), labelText: 'Categoria'),
+                      child: const Text('Cadastrar'),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: SizedBox(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_categoriaController.text != null &&
-                              _categoriaController.text != "") {
-                            CategoriaModel categoria = CategoriaModel(
-                                id: _id.toString(),
-                                nome: _categoriaController.text);
-                            cubit.cadastrarCategoria(categoria);
-                          }
-                        },
-                        child: const Text('Cadastrar'),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          },
-        ),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
