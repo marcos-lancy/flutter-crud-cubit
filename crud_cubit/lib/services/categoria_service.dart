@@ -36,12 +36,9 @@ class CategoriaService {
   }
 
   Future<List<CategoriaModel>> consultarCategorias() async {
-
     http.Response response = await client.get(Uri.parse(getUrl()));
 
-    if(response.statusCode != 200) {
-
-    }
+    if (response.statusCode != 200) {}
 
     List<CategoriaModel> list = [];
 

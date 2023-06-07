@@ -1,12 +1,9 @@
-import 'package:crud_cubit/cubit/categoria_cubit.dart';
-import 'package:crud_cubit/screens/adicionar_page.dart';
-import 'package:crud_cubit/screens/adicionar_screen.dart';
-import 'package:crud_cubit/screens/home_page.dart';
-import 'package:crud_cubit/screens/home_screen.dart';
+import 'package:crud_cubit/screens/cubit/categoria_cubit.dart';
 import 'package:crud_cubit/services/categoria_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,15 +15,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (_) => CategoriaCubit(service: CategoriaService()),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/home',
+        routes: {
+          HomeScreen.routeName: (context) => HomeScreen(),
+        },
       ),
-      initialRoute: '/home',
-      routes: {
-        HomePage.routeName: (context) => HomePage(service: CategoriaService()),
-      },
     );
   }
 }

@@ -1,17 +1,18 @@
-import 'package:crud_cubit/cubit/categoria_cubit.dart';
-import 'package:crud_cubit/cubit/categoria_state.dart';
+import 'package:crud_cubit/models/categoria_model.dart';
 import 'package:crud_cubit/screens/adicionar_screen.dart';
 import 'package:crud_cubit/screens/cubit/categoria_cubit.dart';
 import 'package:crud_cubit/screens/cubit/categoria_state.dart';
-import 'package:crud_cubit/services/categoria_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  late final CategoriaCubit cubit;
+  static String routeName = '/home';
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    cubit = BlocProvider.of<CategoriaCubit>(context)..consultarCategorias();
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
@@ -29,19 +30,13 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: BlocBuilder<CategoriaCubit, CategoriaState>(
+      body: BlocBuilder(
+        bloc: cubit,
         builder: (context, state) {
-          if (state is InitialCategoriaState) {
-            return const Center(
-              child: Text('Nenhuma categoria foi adicionada ainda'),
-            );
+          if (state is LoadedCategoriaState) {
+            return _MeuCard(categorias: state.categorias);
           } else if (state is LoadingCategoriaState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is LoadedCategoriaState) {
-            return _MeuCard(
-                categorias: state.categorias); // recebemos a variavel do state
+            return const Center(child: CircularProgressIndicator());
           } else {
             return const _MeuCard(
                 categorias: []); // mesmo que ocorra erro. é possivel resgatar a lista que ja estava carregada.

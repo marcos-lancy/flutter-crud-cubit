@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:crud_cubit/models/categoria_model.dart';
 import 'package:crud_cubit/screens/cubit/categoria_cubit.dart';
 import 'package:crud_cubit/screens/cubit/categoria_state.dart';
-import 'package:crud_cubit/services/categoria_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdicionaScreen extends StatelessWidget {
+  static String routename = '/adiciona';
   late final CategoriaCubit cubit;
 
   AdicionaScreen({Key? key, required this.cubit}) : super(key: key);
@@ -51,7 +51,7 @@ class AdicionaScreen extends StatelessWidget {
                             id: _id.toString(),
                             nome: _categoriaController.text);
 
-                        cubit.addTodo(categoria: categoria);
+                        cubit.adicionaCategoria(categoria: categoria);
 
                         Navigator.pop(context);
                       },
