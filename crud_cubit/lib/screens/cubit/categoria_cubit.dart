@@ -24,52 +24,24 @@ class CategoriaCubit extends Cubit<CategoriaState> {
 
       emit(LoadedCategoriaState(lista));
     } catch (e) {
-      //emite o terceiro state
-      emit(ErrorCategoriaState('erro teste'));
+      emit(ErrorCategoriaState('erro state'));
     }
   }
 
-  Future<void> removeTodo({required int index}) async {
-    emit(LoadingCategoriaState());
+  Future<void> removeCategoria({required String index}) async {
+    try{
+      emit(LoadingCategoriaState());
 
-    await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
-    emit(LoadedCategoriaState([]));
+      await service.deleteCategoria(id: index);
+
+      final lista = await service.consultarCategorias();
+
+      emit(LoadedCategoriaState(lista));
+
+    } catch (e) {
+      emit(ErrorCategoriaState('erro state'));
+    }
   }
 }
-
-
-// class CategoriaCubit extends Cubit<CategoriaState> {
-//   final CategoriaService service;
-
-//   CategoriaCubit({required this.service}) : super(InitialState());
-
-//   void cadastrarCategoria(CategoriaModel categoria) async {
-//     try {
-//       //emite o primeiro state
-//       emit(LoadingState());
-
-//       final cat = await service.register(categoria);
-
-//       //emite o segundo state
-//       emit(SuccessState(cat));
-//     } catch (e) {
-//       //emite o terceiro state
-//       emit(ErrorState());
-//     }
-//   }
-
-//   void consultarCategorias() async {
-//     try {
-//       //emite o primeiro state
-//       emit(LoadingState());
-
-//       final lista = await service.consultarCategorias();
-
-//       emit(LoadedState(lista));
-//     } catch (e) {
-//       //emite o terceiro state
-//       emit(ErrorState());
-//     }
-//   }
-// }

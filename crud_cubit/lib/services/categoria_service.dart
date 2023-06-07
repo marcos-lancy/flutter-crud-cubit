@@ -51,16 +51,16 @@ class CategoriaService {
     return list;
   }
 
-//   Future<bool> delete({required String id, required String token}) async {
-//     http.Response response = await http.delete(Uri.parse("${getUrl()}$id"),
-//         headers: {'Content-type': 'application/json'});
+  Future<bool> deleteCategoria({required String id}) async {
+    http.Response response =
+    await client.delete(Uri.parse("${getUrl()}$id"), headers: {
+      'Content-type': 'application/json'
+    });
 
-//     if (response.statusCode != 200) {
-//       if (json.decode(response.body) == "jwt expired") {}
+    if (response.statusCode != 200) {
+      throw HttpException(response.body);
+    }
 
-//       throw HttpException(response.body);
-//     }
-
-//     return true;
-//   }
+    return true;
+  }
 }

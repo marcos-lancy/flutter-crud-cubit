@@ -34,12 +34,12 @@ class HomeScreen extends StatelessWidget {
         bloc: cubit,
         builder: (context, state) {
           if (state is LoadedCategoriaState) {
-            return _MeuCard(categorias: state.categorias);
+            return _MeuCard(categorias: state.categorias, cubit: cubit,);
           } else if (state is LoadingCategoriaState) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            return const _MeuCard(
-                categorias: []); // mesmo que ocorra erro. é possivel resgatar a lista que ja estava carregada.
+            return _MeuCard(
+                categorias: [], cubit: cubit,); // mesmo que ocorra erro. é possivel resgatar a lista que ja estava carregada.
           }
         },
       ),
@@ -49,7 +49,8 @@ class HomeScreen extends StatelessWidget {
 
 class _MeuCard extends StatelessWidget {
   final List<CategoriaModel> categorias;
-  const _MeuCard({super.key, required this.categorias});
+  final CategoriaCubit cubit;
+  const _MeuCard({super.key, required this.categorias, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,9 @@ class _MeuCard extends StatelessWidget {
           ),
           title: Text(categorias[index].nome),
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              cubit.removeCategoria(index: categorias[index].id.toString());
+            },
             icon: const Icon(
               Icons.delete,
               color: Colors.red,
