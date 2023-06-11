@@ -13,6 +13,7 @@ class AdicionaScreen extends StatelessWidget {
   AdicionaScreen({Key? key, required this.cubit}) : super(key: key);
 
   final TextEditingController _categoriaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     int _id = Random().nextInt(1000);

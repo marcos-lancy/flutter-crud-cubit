@@ -11,7 +11,7 @@ class CategoriaCubit extends Cubit<CategoriaState> {
   Future<void> adicionaCategoria({required CategoriaModel categoria}) async {
     emit(LoadingCategoriaState());
 
-    service.register(categoria);
+    await service.register(categoria);
 
     await consultarCategorias();
   }

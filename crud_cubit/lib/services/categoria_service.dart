@@ -26,7 +26,7 @@ class CategoriaService {
       body: jsonCategoria,
     );
 
-    if (response.statusCode != 201) {
+    if (response.statusCode != 200) {
       if (json.decode(response.body) == "jwt expired") {}
 
       throw HttpException(response.body);
